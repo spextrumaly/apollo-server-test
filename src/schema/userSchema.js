@@ -1,9 +1,20 @@
 import { gql } from 'apollo-server-express';
 
 export default gql`
+  extend type Query {
+    user(id: ID!): User
+    users: [User!]!
+    numberOfUsers: Int!
+    usersDESC: [User!]!
+    userAgeGreaterThan(age: Int!): [User!]!
+  }
+
   type User {
-    username: String!
+    name: String!
     id: ID!
-    message: Message!
+    email: String!
+    password: String!
+    age: Int!
+    posts: [Post!]!
   }
 `;

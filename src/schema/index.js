@@ -1,4 +1,4 @@
-import messageSchema from './messageSchema';
+import postSchema from './postSchema';
 import userSchema from './userSchema';
 import { gql } from 'apollo-server-express';
 
@@ -7,19 +7,15 @@ const linkSchema = gql`
   scalar JSON
 
   type Query {
-    user(id: ID!): User
     me: User
     test: String!
-    users: [User!]!
-    message(id: ID!): Message
-    messages: [Message!]!
   }
 
   type Mutation {
-    createMessage(text: String!): Message!
-    deleteMessage(id: ID!): Boolean!
+    signUp(name: String!, email: String!, password: String!, age: Int!): String!
+    newPost(title: String!, UserId: Int!): String!
   }
 
 `;
 
-export default [linkSchema, userSchema, messageSchema];
+export default [linkSchema, userSchema, postSchema];

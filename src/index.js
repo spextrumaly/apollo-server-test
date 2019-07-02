@@ -4,7 +4,6 @@ import models from './models';
 import resolvers from './resolvers';
 import schema from './schema';
 import { ApolloServer } from 'apollo-server-express';
-import { users } from './resolvers/mockupData';
 
 const app = express();
 app.use(cors());
@@ -12,7 +11,6 @@ const server = new ApolloServer({
   typeDefs: schema,
   resolvers,
   context: {
-    me: users[1],
     models
   },
 });

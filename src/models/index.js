@@ -1,4 +1,4 @@
-
+import PostModel from './PostModel';
 import Sequelize from 'sequelize';
 import UserModel from './UserModel';
 
@@ -13,8 +13,11 @@ const sequelize = new Sequelize(
 );
 
 const models = {
-  User: UserModel.init(sequelize, Sequelize)
+  User: UserModel.init(sequelize, Sequelize),
+  Post: PostModel.init(sequelize, Sequelize)
 };
+models.User.hasMany(models.Post);
+models.Post.belongsTo(models.User);
 
 export { sequelize };
 

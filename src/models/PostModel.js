@@ -1,43 +1,36 @@
 import { Model } from 'sequelize';
 
-class UserModel extends Model {
+class PostModel extends Model {
   static init(sequelize, Sequelize) {
     return super.init(
       {
         id: {
-          allowNull: false,
           autoIncrement: true,
           primaryKey: true,
           type: Sequelize.INTEGER
         },
-        email: {
+        title: {
           type: Sequelize.STRING,
           allowNull: false,
-          unique: true,
           validate: {
-            isEmail: true,
+            is: ['^[a-z]+$', 'i'],
             notNull: {
-              msg: 'Please enter the email'
+              msg: 'Please enter the title'
             }
           }
         },
-        name: {
-          type: Sequelize.STRING,
+        UserId: {
+          type: Sequelize.INTEGER,
+          foreignKey: true
         },
-        password: {
-          type: Sequelize.STRING
-        },
-        age: {
-          type: Sequelize.INTEGER
-        }
       },
       {
         sequelize,
-        tableName: 'users',
-        modelName: 'User'
+        tableName: 'posts',
+        modelName: 'Post'
       }
     );
   }
 }
 
-export default UserModel;
+export default PostModel;
