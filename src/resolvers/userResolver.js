@@ -2,11 +2,11 @@ import GraphQLJSON from 'graphql-type-json';
 import jwt from 'jsonwebtoken';
 import Sequelize from 'sequelize';
 
-export const createToken = async (user) => {
+export const createToken = async (user) => 
   // const { id, email, name } = user;
-  console.log('SECRET::', process.env.SECRET);
-  return await jwt.sign({user}, process.env.SECRET, { expiresIn: '90 days' });
-};
+  // console.log('SECRET::', process.env.SECRET);
+  await jwt.sign({user}, process.env.SECRET, { expiresIn: '90 days' })
+;
 
 export default {
   JSON: GraphQLJSON,
