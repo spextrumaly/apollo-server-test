@@ -7,6 +7,12 @@ export default {
     posts: async (parent, args, { models }) => {
       const posts = await models.Post.findAll();
       return posts;
+    },
+    post: async (parent, { id }, { models }) => {
+      const post = await models.Post.findOne({
+        where: { id }
+      });
+      return post;
     }
   },
 

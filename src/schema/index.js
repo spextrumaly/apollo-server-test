@@ -13,7 +13,13 @@ const linkSchema = gql`
 
   type Mutation {
     signUp(name: String!, email: String!, password: String!, age: Int!): String!
-    newPost(title: String!, UserId: Int!): String!
+    signIn(email: String!, password: String!): Token
+    newPost(title: String!, UserId: Int!): String
+  }
+
+  type Token {
+    token: String!
+    user: User!
   }
 
 `;

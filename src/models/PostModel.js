@@ -17,7 +17,7 @@ class PostModel extends Model {
             notNull: {
               msg: 'Please enter the title'
             }
-          }
+          },
         },
         UserId: {
           type: Sequelize.INTEGER,
@@ -28,7 +28,17 @@ class PostModel extends Model {
         sequelize,
         tableName: 'posts',
         modelName: 'Post'
-      }
+      },
+      {
+        hooks: {
+          afterValidate: (user, options) => {
+            // eslint-disable-next-line no-console
+            console.log('user', user);
+            // eslint-disable-next-line no-console
+            console.log('options', options);
+          }
+        }
+      },
     );
   }
 }

@@ -34,10 +34,10 @@ export default {
       });
       return no;
     },
-    postsOfUser: async (parent, { name }, { models }) => {
+    postsOfUser: async (parent, { id }, { models }) => {
       const user = await models.User.findAll({
         where: {
-          name
+          id
         },
         include: [{
           model: models.Post
@@ -64,6 +64,23 @@ export default {
       } else {
         return 'Failed!';
       }
+    },
+    signIn: async (parent, { email, password }, { models }) => {
+      const user = await models.User.findOne({
+        where: {
+          email
+        }
+      });
+      if (!user) {
+        throw new Error('Invalid email');
+      }
+      if (user.password === password) {
+        const token = { token: 'Token test', user };
+        return token;
+      } else {
+        return null;
+      }
+      
     }
   },
 
