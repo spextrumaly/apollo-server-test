@@ -1,5 +1,12 @@
 import GraphQLJSON from 'graphql-type-json';
+import jwt from 'jsonwebtoken';
 import Sequelize from 'sequelize';
+
+export const createToken = async (user) => {
+  // const { id, email, name } = user;
+  console.log('SECRET::', process.env.SECRET);
+  return await jwt.sign({user}, process.env.SECRET, { expiresIn: '90 days' });
+};
 
 export default {
   JSON: GraphQLJSON,
@@ -48,6 +55,7 @@ export default {
   },
 
   Mutation: {
+    
     signUp: async (parent, { name, email, password, age }, { models }) => {
       let repeated = true;
       await models.User.findOne({ where: { email } }).then((user) => {
@@ -75,7 +83,8 @@ export default {
         throw new Error('Invalid email');
       }
       if (user.password === password) {
-        const token = { token: 'Token test', user };
+        const jwtToken = await createToken(user);
+        const token = { token: jwtToken, user };
         return token;
       } else {
         return null;
