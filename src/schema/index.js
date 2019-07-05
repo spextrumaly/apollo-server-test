@@ -15,6 +15,7 @@ const linkSchema = gql`
     signUp(name: String!, email: String!, password: String!, age: Int!): String!
     signIn(email: String!, password: String!): Token
     newPost(title: String!, UserId: Int!): String
+    deletePost(id: ID!): String
   }
 
   type Subscription {

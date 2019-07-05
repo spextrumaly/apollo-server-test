@@ -23,6 +23,14 @@ export default {
         { fields: ['title', 'UserId'] }
       );
       return 'Success!';
+    },
+    deletePost: async (parent, { id }, { models }) => {
+      await models.Post.destroy({
+        where: {
+          id
+        }
+      });
+      return 'Success!';
     }
   },
 
