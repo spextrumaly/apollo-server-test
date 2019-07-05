@@ -1,5 +1,6 @@
 import cors from 'cors';
 import express from 'express';
+import http from 'http';
 import models from './models';
 import resolvers from './resolvers';
 import schema from './schema';
@@ -16,17 +17,37 @@ const context = async ({req, connection}) => {
 const app = express();
 app.use(cors());
 const server = new ApolloServer({
+  introspection: true,
+  playground: true,
+  graphiql: true,
   typeDefs: schema,
   resolvers,
   context,
 });
 
-server.applyMiddleware({ app, path: '/graphql' });
+// server.applyMiddleware({ app, path: '/graphql' });
+// const httpServer = http.createServer(app);
+// server.installSubscriptionHandlers(httpServer);
 
-app.listen({ port: 8000 }, () => {
-  /*eslint-disable */
-  console.log('Apollo Server on http://localhost:8000/graphql');
+// app.listen({ port: 8000 }, () => {
+//   /*eslint-disable */
+//   console.log('Apollo Server on http://localhost:8000/graphql');
 
-  /* eslint-enable */
+//   /* eslint-enable */
 
-});
+// });
+const port = '8000';
+
+const runServer = async () => {
+  server.applyMiddleware({ app, path: '/graphql' });
+  const httpServer = http.createServer(app);
+  server.installSubscriptionHandlers(httpServer);
+  const host = '0.0.0.0';
+  httpServer.listen({ port, host }, () => console.log(`Apollo Server on http://0.0.0.0:${port}/graphql`));
+};
+
+try {
+  runServer();
+} catch (err) {
+  console.error('Start server error::', err);
+}

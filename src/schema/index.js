@@ -17,6 +17,10 @@ const linkSchema = gql`
     newPost(title: String!, UserId: Int!): String
   }
 
+  type Subscription {
+    postsOfUser(id: ID!): [User!]!
+  }
+
   type Token {
     token: String!
     user: User!

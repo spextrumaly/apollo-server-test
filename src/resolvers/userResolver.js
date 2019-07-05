@@ -41,6 +41,10 @@ export default {
       });
       return no;
     },
+  },
+
+  Subscription: {
+
     postsOfUser: async (parent, { id }, { models }) => {
       const user = await models.User.findAll({
         where: {
